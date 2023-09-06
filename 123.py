@@ -33,12 +33,12 @@ class ActivityRanking:
         # 系统提供玩家名次查询接口，玩家能够查询自己名次前后10位玩家的分数和名次
         # month = datetime.now().month
         key = 'players_%s' % month
-        cc = self.rdb.zrevrank(key, playerName)
+        player_rank = self.rdb.zrevrank(key, playerName)
         t = 10
-        start = cc - t
+        start = player_rank - t
         if start < 0:
             start = 0
-        end = cc + t
+        end = player_rank + t
         withscore = self.rdb.zrevrange(key, start, end, withscores=True)
 
         print('withscore  3  ', withscore)
