@@ -1,6 +1,6 @@
 import redis
 from datetime import datetime
-
+import random
 # class ActivityPlayer:
 #     def __init__(self, name, score):
 #         self.name = name
@@ -25,6 +25,18 @@ class ActivityRanking:
         month = datetime.now().month
         key = 'players_%s' % month
         self.rdb.zincrby(name=key, amount=score, value=playerName)
+        # print('addPlayer  ', self.rdb.zrevrange(key, 0, -1))
+        # self.players[playerName] = ActivityPlayer(playerName, score)
+        # self.monthlyScore += score
+
+    def addPlayer_40w(self):
+        # 在每月活动中，玩家得到的活动总分为 0 到 10000 之间的整数
+        month = datetime.now().month
+        key = 'players_%s' % month
+        # self.rdb.zincrby(name=key, amount=score, value=playerName)
+        for i in range(400000):
+            score = random.randint(1, 1000)
+            self.rdb.zincrby(name=key, amount=score, value=i)
         # print('addPlayer  ', self.rdb.zrevrange(key, 0, -1))
         # self.players[playerName] = ActivityPlayer(playerName, score)
         # self.monthlyScore += score
@@ -55,9 +67,11 @@ class ActivityRanking:
 ranking = ActivityRanking()
 ranking.addPlayer("Alice", 500)
 ranking.addPlayer("Bob", 300)
+# ranking.addPlayer("Charlie", 400)
+ranking.addPlayer("Dave", 200)
+ranking.addPlayer("Dave", 200)
 ranking.addPlayer("Charlie", 400)
-ranking.addPlayer("Dave", 200)
-ranking.addPlayer("Dave", 200)
+# ranking.addPlayer_40w()
 # print(ranking.getPlayerRank_10("Alice")) # 输出: 1
 # print(ranking.getPlayerRank_10("Bob")) # 输出: 2
 # print(ranking.getPlayerRank_10("Charlie")) # 输出: 1
