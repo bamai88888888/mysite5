@@ -43,6 +43,7 @@ class ActivityRanking:
         # self.rdb.zincrby(name=key, amount=score, value=playerName)
         for i in range(400000):
             score = random.randint(1, 1000)
+            self.addPlayer(i, score)
             # self.rdb.zincrby(name=key, amount=score, value=i)
         # print('addPlayer  ', self.rdb.zrevrange(key, 0, -1))
         # self.players[playerName] = ActivityPlayer(playerName, score)
@@ -86,7 +87,7 @@ ranking.addPlayer("Dave3", 1200)
 ranking.addPlayer("Dave4", 2200)
 ranking.addPlayer("Dave5", 3200)
 # ranking.addPlayer("Charlie", 400)
-# ranking.addPlayer_40w()
+ranking.addPlayer_40w()
 ranking.calculateMonthlyRanking()
 
 print(ranking.getPlayerRank_10("Dave3", 9))
